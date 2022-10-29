@@ -6,10 +6,8 @@ const db = require("./config/database");
 
 app.use(express.json());
 
-//* ROUTES
+//* ROUTE TO PRODUCTS.JS
 app.use("/products",require("./routes/products"));
-
-
 
 //* ENDPOINT CREATE DATA BASE
 app.get("/createdb", (req, res) => {
@@ -20,6 +18,7 @@ app.get("/createdb", (req, res) => {
     res.send("Database created successfully :)...");
   });
 });
+
 
 app.listen(PORT, () => {
   console.log("Server started successfully in port 3000");
