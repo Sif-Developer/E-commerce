@@ -44,6 +44,16 @@ router.put("/updateProductById/:id", (req, res) => {
   });
 });
 
+//* DELETE PRODUCT
+router.delete("/deleteProductById/:id", (req, res) => {
+  let sql = `DELETE FROM products WHERE id = ${req.params.id}`;
+  db.query(sql, (err, result) => {
+    if (err) throw err;
+    console.log(result);
+    res.send("Product deleted by Id. Bye,bye :_(");
+  });
+});
+
 
 
 module.exports = router;
