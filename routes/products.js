@@ -71,5 +71,13 @@ router.get("/getProductByName/:name", (req, res) => {
   });
 });
 
+//* GET PRODUCT BY PRICE
+router.get("/getProductByPrice/:price", (req, res) => {
+  let sql = `SELECT * FROM products WHERE price = '${req.params.price}'`; 
+  db.query(sql, (err, result) => {
+    if (err) throw err;
+    res.send(result);
+  });
+});
 
 module.exports = router;
