@@ -13,13 +13,12 @@ router.post("/createTableProducts", (req, res) => {
   });
 });
 
-//* GET TABLE PRODUCTS
+//* GET ALL PRODUCTS
 
 router.get("/getAllProducts", (req, res) => {
   let sql = "SELECT * FROM products";
   db.query(sql, (err, result) => {
     if (err) throw err;
-    console.log(result);
     res.send(result);
   });
 });
@@ -59,9 +58,18 @@ router.get("/getProductById/:id", (req, res) => {
   let sql = `SELECT * FROM products WHERE id = ${req.params.id}`;
   db.query(sql, (err, result) => {
     if (err) throw err;
-    console.log(result);
     res.send(result);
   });
 });
+
+//* GET PRODUCT BY NAME
+router.get("/getProductByName/:name", (req, res) => {
+  let sql = `SELECT * FROM products WHERE name = '${req.params.name}'`; 
+  db.query(sql, (err, result) => {
+    if (err) throw err;
+    res.send(result);
+  });
+});
+
 
 module.exports = router;
