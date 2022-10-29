@@ -1,6 +1,8 @@
 const express = require("express");
 const router = express.Router();
 const db = require("../config/database");
+const { createProduct } = require("../controllers/ProductController");
+const ProductController = require("../controllers/ProductController");
 
 //* CREATE TABLE PRODUCTS
 router.post("/createTableProducts", (req, res) => {
@@ -13,25 +15,20 @@ router.post("/createTableProducts", (req, res) => {
   });
 });
 
-//* GET ALL PRODUCTS
+//* ROUTES TO CONTROLLERS
+router.get("/getAllProducts", ProductController.getAllProducts); 
+router.post("/createProduct", ProductController.createProduct);
 
-router.get("/getAllProducts", (req, res) => {
-  let sql = "SELECT * FROM products";
-  db.query(sql, (err, result) => {
-    if (err) throw err;
-    res.send(result);
-  });
-});
 
-//* CREATE PRODUCT
-router.post("/createProduct", (req, res) => {
-  let sql = `INSERT INTO products (name, price, description) values
-            ('${req.body.name}', '${req.body.price}', '${req.body.description}')`;
-  db.query(sql, (err, result) => {
-    if (err) throw err;
-    res.send("New product added successfully :)");
-  });
-});
+// //* CREATE PRODUCT
+// router.post("/createProduct", (req, res) => {
+//   let sql = `INSERT INTO products (name, price, description) values
+//             ('${req.body.name}', '${req.body.price}', '${req.body.description}')`;
+//   db.query(sql, (err, result) => {
+//     if (err) throw err;
+//     res.send("New product added successfully :)");
+//   });
+// });
 
 //* UPDATE PRODUCT BY ID
 router.put("/updateProductById/:id", (req, res) => {
@@ -64,7 +61,7 @@ router.get("/getProductById/:id", (req, res) => {
 
 //* GET PRODUCT BY NAME
 router.get("/getProductByName/:name", (req, res) => {
-  let sql = `SELECT * FROM products WHERE name = '${req.params.name}'`; 
+  let sql = `SELECT * FROM products WHERE name = '${req.params.name}'`;
   db.query(sql, (err, result) => {
     if (err) throw err;
     res.send(result);
@@ -73,7 +70,16 @@ router.get("/getProductByName/:name", (req, res) => {
 
 //* GET PRODUCT BY PRICE
 router.get("/getProductByPrice/:price", (req, res) => {
-  let sql = `SELECT * FROM products WHERE price = '${req.params.price}'`; 
+  let sql = `SELECT * FROM products WHERE price = '${req.params.price}'`;
+  db.query(sql, (err, result) => {
+    if (err) throw err;
+    res.send(result);
+  });
+});
+
+//* ORDER THE PRODUCTS FROM THE LARGEST TO SMALLEST PRICE
+router.get("/getProductsLargestToSmallestPrice", (req, res) => {
+  let sql = `SELECT * FROM products order by price desc`;
   db.query(sql, (err, result) => {
     if (err) throw err;
     res.send(result);
