@@ -6,6 +6,11 @@ const db = require("./config/database");
 
 app.use(express.json());
 
+//* ROUTES
+app.use("/products",require("./routes/products"));
+
+
+
 //* ENDPOINT CREATE DATA BASE
 app.get("/createdb", (req, res) => {
   let sql = "CREATE DATABASE e_commerce";
