@@ -5,8 +5,14 @@ const PORT = 3000;
 const db = require("./config/database");
 
 app.use(express.json());
+
+//* ROUTES
+app.use("/products",require("./routes/products"));
 app.use("/categories",require("./routes/categories"));
 
+
+
+//* ENDPOINT CREATE DATA BASE
 app.get("/createdb", (req, res) => {
   let sql = "CREATE DATABASE e_commerce";
   db.query(sql, (err, result) => {
