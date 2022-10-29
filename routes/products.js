@@ -13,9 +13,9 @@ router.post("/createTableProducts", (req, res) => {
   });
 });
 
-//* SHOW TABLE PRODUCTS
+//* GET TABLE PRODUCTS
 
-router.get("/showAllProducts", (req, res) => {
+router.get("/getAllProducts", (req, res) => {
   let sql = "SELECT * FROM products";
   db.query(sql, (err, result) => {
     if (err) throw err;
@@ -34,7 +34,7 @@ router.post("/createProduct", (req, res) => {
   });
 });
 
-//* UPDATE PRODUCT
+//* UPDATE PRODUCT BY ID
 router.put("/updateProductById/:id", (req, res) => {
   let sql = `UPDATE products SET  name = '${req.body.name}',price = ${req.body.price},
            description = '${req.body.description}'  WHERE id = ${req.params.id}`;
@@ -44,16 +44,24 @@ router.put("/updateProductById/:id", (req, res) => {
   });
 });
 
-//* DELETE PRODUCT
+//* DELETE PRODUCT BY ID
 router.delete("/deleteProductById/:id", (req, res) => {
   let sql = `DELETE FROM products WHERE id = ${req.params.id}`;
   db.query(sql, (err, result) => {
     if (err) throw err;
     console.log(result);
-    res.send("Product deleted by Id. Bye,bye :_(");
+    res.send("Product deleted by Id. Bye,bye");
   });
 });
 
-
+//* GET PRODUCT BY ID
+router.get("/getProductById/:id", (req, res) => {
+  let sql = `SELECT * FROM products WHERE id = ${req.params.id}`;
+  db.query(sql, (err, result) => {
+    if (err) throw err;
+    console.log(result);
+    res.send(result);
+  });
+});
 
 module.exports = router;
