@@ -5,7 +5,7 @@ const db = require("./config/database");
 
 app.use(express.json());
 
-//* ROUTES
+//* ROUTE TO PRODUCTS.JS
 app.use("/products",require("./routes/products"));
 app.use("/categories",require("./routes/categories"));
 
